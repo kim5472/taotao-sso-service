@@ -153,4 +153,14 @@ public class UserServiceImpl implements UserService{
 		return TaotaoResult.ok(user);
 	}
 
+	@Override
+	public TaotaoResult logout(String token) {
+		
+		Boolean isExist = jedisClient.exists(USER_SESSION+":"+token);
+		if (!isExist) {
+			return TaotaoResult.build(400, "退出失败！");
+		}
+		return TaotaoResult.ok("");
+	}
+
 }
